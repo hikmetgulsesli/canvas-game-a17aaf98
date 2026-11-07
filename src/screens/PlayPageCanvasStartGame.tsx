@@ -14,16 +14,24 @@ export interface PlayPageCanvasStartGameProps {
   actions?: {
     "start-1"?: () => void;
   };
+  /** Current high score value (null when no value is known yet). */
+  highScore?: number | null;
+  /** Status feed message rendered in the game status surface. */
+  statusMessage?: string;
+}
 
+function currentRoutePath(): string {
+  if (typeof window === "undefined") return "/play";
+  return window.location.pathname || "/play";
 }
 
 export type PlayPageCanvasStartGameActionCallbacks = NonNullable<PlayPageCanvasStartGameProps["actions"]>;
 
-export function PlayPageCanvasStartGame({ actions }: PlayPageCanvasStartGameProps) {
+export function PlayPageCanvasStartGame({ actions, highScore = null, statusMessage = "Awaiting session start" }: PlayPageCanvasStartGameProps) {
   return (
     <>
       {/* Root Surface: Play Page */}
-        <main data-surface-id="SURF_PLAY_PAGE" className="flex-1 flex flex-col min-h-screen" data-setfarm-element-ref="E000001" data-observable-refs="OBS_START_GAME_PLAY_ROUTE_STABILITY">
+        <main data-surface-id="SURF_PLAY_PAGE" className="flex-1 flex flex-col min-h-screen" data-setfarm-element-ref="E000001" data-observable-refs="OBS_START_GAME_PLAY_ROUTE_STABILITY" data-route={currentRoutePath()}>
           {/* Non-actionable Decorative Header */}
           <header className="border-b border-slate-800 bg-slate-900/60 backdrop-blur px-8 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -83,7 +91,7 @@ export function PlayPageCanvasStartGame({ actions }: PlayPageCanvasStartGameProp
                 <div className="flex items-baseline justify-between mt-1">
                   <span className="text-sm text-slate-300">High Score</span>
                   {/* Accessibility role status with name "High score" */}
-                  <div className="text-xl font-bold font-mono text-emerald-400 tracking-tight" data-setfarm-element-ref="E000005" role="status" aria-label="High score" data-observable-refs="OBS_START_GAME_CURRENT_HIGH_SCORE_VALUE"></div>
+                  <div className="text-xl font-bold font-mono text-emerald-400 tracking-tight" data-setfarm-element-ref="E000005" role="status" aria-label="High score" data-observable-refs="OBS_START_GAME_CURRENT_HIGH_SCORE_VALUE" data-value={highScore === null || highScore === undefined ? undefined : String(highScore)}></div>
                 </div>
               </div>
       
@@ -94,7 +102,7 @@ export function PlayPageCanvasStartGame({ actions }: PlayPageCanvasStartGameProp
                 <div className="mt-2 text-sm text-slate-300 font-medium min-h-[1.5rem] flex items-center" data-setfarm-element-ref="E000006" role="status" aria-label="Game status" data-observable-refs="OBS_START_GAME_GAME_STARTED_MESSAGE">
                   <span className="inline-flex items-center gap-1.5 text-xs text-indigo-400/90 font-mono">
                     <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
-                    Awaiting session start
+                    {statusMessage}
                   </span>
                 </div>
               </div>
