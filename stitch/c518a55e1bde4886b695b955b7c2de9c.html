@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Play Page - Canvas Start Game</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-indigo-500 selection:text-white">
+  <!-- Root Surface: Play Page -->
+  <main data-surface-id="SURF_PLAY_PAGE" class="flex-1 flex flex-col min-h-screen">
+    <!-- Non-actionable Decorative Header -->
+    <header class="border-b border-slate-800 bg-slate-900/60 backdrop-blur px-8 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/20">
+          C
+        </div>
+        <div>
+          <h1 class="text-lg font-semibold tracking-tight text-white leading-tight">Canvas Game</h1>
+          <p class="text-xs text-slate-400">Play Mode</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <button data-action="ACT_START_GAME" data-control-slot="CSLOT_START_GAME_START_BUTTON" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white text-sm font-semibold rounded-lg shadow-md shadow-indigo-600/25 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900">
+          Start
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace Layout -->
+    <div class="flex-1 p-8 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <!-- Contained Surface: Game Canvas -->
+      <section data-surface-id="SURF_GAME_CANVAS" class="lg:col-span-3 bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col shadow-xl relative overflow-hidden">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-800/80 mb-4">
+          <div class="flex items-center gap-2">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="text-sm font-medium text-slate-300">Active Stage</span>
+          </div>
+          <span class="text-xs text-slate-500 font-mono">60 FPS &bull; READY</span>
+        </div>
+        <div class="flex-1 min-h-[460px] bg-slate-950 rounded-xl border border-slate-800/60 relative flex flex-col items-center justify-center p-8 text-center overflow-hidden">
+          <!-- Background Grid Matrix Accent -->
+          <div class="absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none"></div>
+
+          <!-- Canvas Preview Placeholder Graphic -->
+          <div class="relative z-10 flex flex-col items-center max-w-md">
+            <div class="w-16 h-16 rounded-2xl bg-indigo-950/70 border border-indigo-500/30 flex items-center justify-center mb-4 text-indigo-400">
+              <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <p class="text-base font-semibold text-slate-200">Interactive Game Canvas</p>
+            <p class="text-sm text-slate-400 mt-1">Press Start from the control bar to initiate session tracking and gameplay.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contained Surface: Game Status -->
+      <aside data-surface-id="SURF_GAME_STATUS" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col gap-6 shadow-xl h-fit">
+        <div class="border-b border-slate-800/80 pb-4">
+          <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-400">Match Overview</h2>
+        </div>
+
+        <!-- High Score Observable -->
+        <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-4 flex flex-col gap-1">
+          <span class="text-xs font-medium text-slate-400">Current Record</span>
+          <div class="flex items-baseline justify-between mt-1">
+            <span class="text-sm text-slate-300">High Score</span>
+            <!-- Accessibility role status with name "High score" -->
+            <div role="status" aria-label="High score" class="text-xl font-bold font-mono text-emerald-400 tracking-tight"></div>
+          </div>
+        </div>
+
+        <!-- Game Status Message Observable -->
+        <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-4 flex flex-col gap-1">
+          <span class="text-xs font-medium text-slate-400">Status Feed</span>
+          <!-- Accessibility role status with name "Game status" -->
+          <div role="status" aria-label="Game status" class="mt-2 text-sm text-slate-300 font-medium min-h-[1.5rem] flex items-center">
+            <span class="inline-flex items-center gap-1.5 text-xs text-indigo-400/90 font-mono">
+              <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+              Awaiting session start
+            </span>
+          </div>
+        </div>
+
+        <div class="pt-2 text-xs text-slate-500 leading-relaxed border-t border-slate-800/60">
+          Route: <span class="font-mono text-slate-400">/play</span> &bull; All systems operational.
+        </div>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>
